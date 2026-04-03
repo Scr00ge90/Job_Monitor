@@ -127,7 +127,11 @@ python monitor.py
 
 ## 👤 Автор
 
-**Пак Виталий** — Junior QA Engineer  
-📧 [LinkedIn / GitHub / Email]
+**Пак Виталий** — Junior QA Engineer
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/vitaliy-pak-634a163b9)
+[![Notion Portfolio](https://img.shields.io/badge/Portfolio-000000?logo=notion&logoColor=white)](https://www.notion.so/97f6c027176c83aaa56a019ee570248e)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/Scr00ge90)
+[![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?logo=telegram&logoColor=white)](https://t.me/Scr00ge_3_16)
 
 > Этот проект — часть моего портфолио. Демонстрирует навыки Python-автоматизации, работы с API, логирования и написания чистого кода.
