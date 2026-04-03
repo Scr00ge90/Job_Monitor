@@ -1,0 +1,142 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.app { display: flex; height: 600px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: var(--color-background-tertiary); }
+.sidebar { width: 200px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); padding: 16px 0; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+.logo { padding: 0 16px 16px; border-bottom: 0.5px solid var(--color-border-tertiary); margin-bottom: 8px; }
+.logo-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.logo-sub { font-size: 11px; color: var(--color-text-secondary); }
+.nav-item { padding: 8px 16px; font-size: 13px; color: var(--color-text-secondary); cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 0; }
+.nav-item.active { background: var(--color-background-secondary); color: var(--color-text-primary); font-weight: 500; border-left: 2px solid #378ADD; }
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.status-badge { margin: auto 16px 16px; padding: 8px 12px; background: var(--color-background-success); border-radius: var(--border-radius-md); }
+.status-text { font-size: 11px; color: var(--color-text-success); font-weight: 500; }
+.main { flex: 1; overflow: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.metric { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 12px; }
+.metric-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 4px; }
+.metric-value { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+.metric-sub { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px; }
+.card-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 12px; }
+.channel-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.channel-item:last-child { border-bottom: none; }
+.channel-name { font-size: 12px; color: var(--color-text-primary); }
+.channel-count { font-size: 11px; color: var(--color-text-secondary); }
+.tag { display: inline-block; padding: 3px 8px; border-radius: 99px; font-size: 11px; background: var(--color-background-info); color: var(--color-text-info); margin: 3px 2px; }
+.tag.exclude { background: var(--color-background-danger); color: var(--color-text-danger); }
+.log-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.log-item:last-child { border-bottom: none; }
+.log-time { font-size: 11px; color: var(--color-text-secondary); min-width: 44px; font-family: var(--font-mono); }
+.log-text { font-size: 12px; color: var(--color-text-primary); }
+.log-ok { color: var(--color-text-success); font-weight: 500; }
+.controls { display: flex; gap: 8px; }
+.btn { padding: 6px 14px; font-size: 12px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; }
+.btn.primary { background: #378ADD; color: white; border-color: #378ADD; }
+.btn.danger { background: var(--color-background-danger); color: var(--color-text-danger); border-color: var(--color-border-danger); }
+.slider-row { display: flex; align-items: center; gap: 10px; margin: 6px 0; }
+.slider-label { font-size: 12px; color: var(--color-text-secondary); min-width: 80px; }
+.slider-val { font-size: 12px; font-weight: 500; min-width: 36px; color: var(--color-text-primary); }
+.progress-bar { height: 4px; background: var(--color-background-secondary); border-radius: 2px; margin: 8px 0; }
+.progress-fill { height: 4px; background: #378ADD; border-radius: 2px; width: 32%; }
+</style>
+
+<div class="app">
+  <div class="sidebar">
+    <div class="logo">
+      <div class="logo-title">QA Monitor</div>
+      <div class="logo-sub">v1.1</div>
+    </div>
+    <div class="nav-item active"><div class="nav-dot"></div>Дашборд</div>
+    <div class="nav-item"><div class="nav-dot"></div>Каналы</div>
+    <div class="nav-item"><div class="nav-dot"></div>Ключевые слова</div>
+    <div class="nav-item"><div class="nav-dot"></div>Шаблон сообщения</div>
+    <div class="nav-item"><div class="nav-dot"></div>Настройки</div>
+    <div class="nav-item"><div class="nav-dot"></div>Логи</div>
+    <div class="status-badge">
+      <div class="status-text">Скрипт активен</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div style="display:flex; align-items:center; justify-content:space-between;">
+      <div style="font-size:16px; font-weight:500; color:var(--color-text-primary);">Дашборд</div>
+      <div class="controls">
+        <div class="btn danger">Остановить</div>
+        <div class="btn primary">Перезапустить</div>
+      </div>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">Откликов сегодня</div>
+        <div class="metric-value">8</div>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+        <div class="metric-sub">из 25 в день</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Вакансий найдено</div>
+        <div class="metric-value">23</div>
+        <div class="metric-sub">за сегодня</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Каналов активно</div>
+        <div class="metric-value">6</div>
+        <div class="metric-sub">мониторинг</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Режим</div>
+        <div class="metric-value" style="font-size:14px; padding-top:4px;">SAFE</div>
+        <div class="metric-sub">тестовый</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="card">
+        <div class="card-title">Каналы</div>
+        <div class="channel-item"><span class="channel-name">@itvacancykz</span><span class="channel-count">12 вакансий</span></div>
+        <div class="channel-item"><span class="channel-name">@jobfortester</span><span class="channel-count">6 вакансий</span></div>
+        <div class="channel-item"><span class="channel-name">@qajoboffer</span><span class="channel-count">3 вакансии</span></div>
+        <div class="channel-item"><span class="channel-name">@workitkz</span><span class="channel-count">2 вакансии</span></div>
+        <div class="channel-item"><span class="channel-name">@it_interns</span><span class="channel-count">0 вакансий</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Настройки задержки</div>
+        <div class="slider-row">
+          <span class="slider-label">Мин. пауза</span>
+          <input type="range" min="30" max="300" value="60" style="flex:1;" />
+          <span class="slider-val">60 с</span>
+        </div>
+        <div class="slider-row">
+          <span class="slider-label">Макс. пауза</span>
+          <input type="range" min="60" max="600" value="120" style="flex:1;" />
+          <span class="slider-val">120 с</span>
+        </div>
+        <div style="margin-top:12px;">
+          <div class="card-title">Фильтры</div>
+          <div>
+            <span class="tag">qa</span>
+            <span class="tag">junior</span>
+            <span class="tag">стажировка</span>
+            <span class="tag">intern</span>
+          </div>
+          <div style="margin-top:6px;">
+            <span class="tag exclude">senior</span>
+            <span class="tag exclude">lead</span>
+            <span class="tag exclude">middle+</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Последние действия</div>
+      <div class="log-item"><span class="log-time">14:32</span><span class="log-text"><span class="log-ok">[OK]</span> Отправлено @hr_kz_jobs — Ищем Junior QA...</span></div>
+      <div class="log-item"><span class="log-time">14:15</span><span class="log-text"><span class="log-ok">[OK]</span> Отправлено @recruiter_it — Стажировка QA...</span></div>
+      <div class="log-item"><span class="log-time">13:58</span><span class="log-text" style="color:var(--color-text-secondary);">[SKIP] @senior_qa_bot — бот, пропущен</span></div>
+      <div class="log-item"><span class="log-time">13:44</span><span class="log-text" style="color:var(--color-text-secondary);">[SKIP] @hr_lead_kz — содержит "lead"</span></div>
+    </div>
+  </div>
+</div>
